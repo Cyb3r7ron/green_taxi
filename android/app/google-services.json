@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "940674108661",
+    "project_id": "thesocial-7bd03",
+    "storage_bucket": "thesocial-7bd03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:940674108661:android:d8953e4c1469c497a1c9bc",
+        "android_client_info": {
+          "package_name": "com.example.green_taxi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "940674108661-30e72es50una4h4njkdh7ouminkq2dfs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaOx5Z3GCAWvAhvhqYzly_22T9GtPY93w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "940674108661-30e72es50una4h4njkdh7ouminkq2dfs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

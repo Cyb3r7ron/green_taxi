@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>940674108661-b2dg3k0uq18m8if11gt8nj44cdqt34ep.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.940674108661-b2dg3k0uq18m8if11gt8nj44cdqt34ep</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>940674108661-7er8o5cjr3dj16ieis7dutue6ot2g6oe.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAXAAdshnGcdxmR3TcqBJPnzgz2ccPWvug</string>
+	<key>GCM_SENDER_ID</key>
+	<string>940674108661</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.greenTaxi</string>
+	<key>PROJECT_ID</key>
+	<string>thesocial-7bd03</string>
+	<key>STORAGE_BUCKET</key>
+	<string>thesocial-7bd03.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:940674108661:ios:2ee9c4ed304b278aa1c9bc</string>
+</dict>
+</plist>
