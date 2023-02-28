@@ -1,7 +1,9 @@
 import 'package:fl_country_code_picker/src/models/country_code.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_taxi/utils/app_constants.dart';
+import 'package:green_taxi/views/otp_verification_screen.dart';
 import 'package:green_taxi/widgets/text_widget.dart';
 
 Widget loginWidget(CountryCode countryCode, Function onCountryChange) {
@@ -49,11 +51,28 @@ Widget loginWidget(CountryCode countryCode, Function onCountryChange) {
                           ),
                         ),
                         textWidget(text: countryCode.dialCode),
+
+                        Icon(Icons.keyboard_arrow_down_rounded)
                       ],
                     ),
                   ),
                 ),
               ),
+              Container(
+                width: 1,
+                height: 55,
+                color: Colors.black.withOpacity(0.2),
+              ),
+              Expanded(
+                  flex: 3,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: TextField(
+                      onTap: () {
+                        Get.to(() => OtpVerificationScreen());
+                      },
+                    ),
+                  ))
             ],
           ),
         ),
