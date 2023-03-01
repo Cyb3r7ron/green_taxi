@@ -27,9 +27,9 @@ class _RoundedWithShadowState extends State<RoundedWithShadow> {
       width: 60,
       height: 64,
       textStyle: GoogleFonts.poppins(
-          fontSize: 20, color: Color.fromRGBO(70, 69, 66, 1)),
+          fontSize: 20, color: const Color.fromRGBO(70, 69, 66, 1)),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(232, 235, 241, 0.37),
+        color: const Color.fromRGBO(232, 235, 241, 0.37),
         borderRadius: BorderRadius.circular(8),
       ),
     );
