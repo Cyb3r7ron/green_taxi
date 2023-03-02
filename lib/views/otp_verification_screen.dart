@@ -7,21 +7,19 @@ import 'package:green_taxi/widgets/green_intro_widget.dart';
 import '../widgets/otp_verification_widget.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
-
-  String phoneNumber;
-  OtpVerificationScreen(this.phoneNumber);
+  final String phoneNumber;
+  const OtpVerificationScreen(this.phoneNumber, {super.key});
 
   @override
   State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
-
-
   AuthController authController = Get.find<AuthController>();
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     authController.phoneAuth(widget.phoneNumber);
@@ -33,17 +31,14 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-
-
             Stack(
               children: [
                 greenIntroWidget(),
-
                 Positioned(
                   top: 60,
                   left: 30,
                   child: InkWell(
-                    onTap: (){
+                    onTap: () {
                       Get.back();
                     },
                     child: Container(
@@ -53,22 +48,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
-                      child: Icon(Icons.arrow_back,color: AppColors.greenColor,size: 20,),
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: AppColors.greenColor,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ),
-
-
               ],
             ),
-
             SizedBox(
               height: 50,
             ),
-
             otpVerificationWidget(),
-
-
           ],
         ),
       ),

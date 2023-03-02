@@ -21,13 +21,7 @@ Widget otpVerificationWidget() {
         const SizedBox(
           height: 40,
         ),
-
-
-        Container(
-
-            width: Get.width,
-            height: 50,
-            child: RoundedWithShadow()),
+        Container(width: Get.width, height: 50, child: RoundedWithShadow()),
         const SizedBox(
           height: 40,
         ),
@@ -44,7 +38,6 @@ Widget otpVerificationWidget() {
                   TextSpan(
                       text: "10 seconds",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
-
                 ]),
           ),
         )
