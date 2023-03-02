@@ -1,15 +1,16 @@
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:green_taxi/utils/app_constants.dart';
+import 'package:green_taxi/views/otp_verification_screen.dart';
 import 'package:green_taxi/widgets/pinput_widget.dart';
 import 'package:green_taxi/widgets/text_widget.dart';
 
-Widget otpVerficationWidget() {
+Widget otpVerificationWidget() {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
-    child: Expanded(
-        child: Column(
+    child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         textWidget(text: AppConstants.phoneVerification),
@@ -20,7 +21,13 @@ Widget otpVerficationWidget() {
         const SizedBox(
           height: 40,
         ),
-        Container(width: Get.width, height: 50, child: RoundedWithShadow()),
+
+
+        Container(
+
+            width: Get.width,
+            height: 50,
+            child: RoundedWithShadow()),
         const SizedBox(
           height: 40,
         ),
@@ -37,10 +44,11 @@ Widget otpVerficationWidget() {
                   TextSpan(
                       text: "10 seconds",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+
                 ]),
           ),
-        ),
+        )
       ],
-    )),
+    ),
   );
 }
