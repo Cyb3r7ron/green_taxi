@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +12,6 @@ import 'package:green_taxi/views/my_profile.dart';
 import '../controller/auth_controller.dart';
 import '../controller/polyline_handler.dart';
 import '../utils/app_colors.dart';
-import '../utils/app_constants.dart';
 import 'package:geocoding/geocoding.dart' as geoCoding;
 import 'dart:ui' as ui;
 
@@ -35,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late LatLng destination;
   late LatLng source;
   final Set<Polyline> _polyline = {};
-  Set<Marker> markers = Set<Marker>();
+  Set<Marker> markers = <Marker>{};
   List<String> list = <String>[
     '**** **** **** 8789',
     '**** **** **** 8921',
@@ -57,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String dropdownValue = '**** **** **** 8789';
-  final CameraPosition _kGooglePlex = CameraPosition(
+  final CameraPosition _kGooglePlex = const CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
     zoom: 14.4746,
   );
@@ -104,14 +102,14 @@ class _HomeScreenState extends State<HomeScreen> {
       left: 0,
       right: 0,
       child: Obx(() => authController.myUser.value.name == null
-          ? Center(
+          ? const Center(
               child: CircularProgressIndicator(),
             )
           : Container(
               width: Get.width,
               height: Get.width * 0.5,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              decoration: BoxDecoration(color: Colors.white70),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              decoration: const BoxDecoration(color: Colors.white70),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -122,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: authController.myUser.value.image == null
-                            ? DecorationImage(
+                            ? const DecorationImage(
                                 image: AssetImage('assets/person.png'),
                                 fit: BoxFit.fill)
                             : DecorationImage(
@@ -139,19 +137,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       RichText(
                         text: TextSpan(children: [
-                          TextSpan(
+                          const TextSpan(
                               text: 'Good Morning, ',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 14)),
                           TextSpan(
                               text: authController.myUser.value.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.green,
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold)),
                         ]),
                       ),
-                      Text(
+                      const Text(
                         "Where are you going?",
                         style: TextStyle(
                             fontSize: 18,
@@ -179,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         width: Get.width,
         height: 50,
-        padding: EdgeInsets.only(left: 15),
+        padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -234,8 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(left: 10),
+            suffixIcon: const Padding(
+              padding: EdgeInsets.only(left: 10),
               child: Icon(
                 Icons.search,
               ),
@@ -255,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         width: Get.width,
         height: 50,
-        padding: EdgeInsets.only(left: 15),
+        padding: const EdgeInsets.only(left: 15),
         decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -281,8 +279,8 @@ class _HomeScreenState extends State<HomeScreen> {
               fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
-            suffixIcon: Padding(
-              padding: const EdgeInsets.only(left: 10),
+            suffixIcon: const Padding(
+              padding: EdgeInsets.only(left: 10),
               child: Icon(
                 Icons.search,
               ),
@@ -295,10 +293,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildCurrentLocationIcon() {
-    return Align(
+    return const Align(
       alignment: Alignment.bottomRight,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 30, right: 8),
+        padding: EdgeInsets.only(bottom: 30, right: 8),
         child: CircleAvatar(
           radius: 20,
           backgroundColor: Colors.green,
@@ -312,10 +310,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildNotificationIcon() {
-    return Align(
+    return const Align(
       alignment: Alignment.bottomLeft,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 30, left: 8),
+        padding: EdgeInsets.only(bottom: 30, left: 8),
         child: CircleAvatar(
           radius: 20,
           backgroundColor: Colors.white,
@@ -342,7 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   spreadRadius: 4,
                   blurRadius: 10)
             ],
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(12), topLeft: Radius.circular(12))),
         child: Center(
           child: Container(
@@ -366,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return SizedBox(
       height: height,
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         // minVerticalPadding: 0,
         dense: true,
         onTap: () => onPressed(),
@@ -459,28 +457,30 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20,
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: [
-                buildDrawerItem(title: 'Payment History', onPressed: () => Get.to(()=> PaymentScreen())),
+                buildDrawerItem(
+                    title: 'Payment History',
+                    onPressed: () => Get.to(() => PaymentScreen())),
                 buildDrawerItem(
                     title: 'Ride History', onPressed: () {}, isVisible: true),
                 buildDrawerItem(title: 'Invite Friends', onPressed: () {}),
                 buildDrawerItem(title: 'Promo Codes', onPressed: () {}),
                 buildDrawerItem(title: 'Settings', onPressed: () {}),
                 buildDrawerItem(title: 'Support', onPressed: () {}),
-                buildDrawerItem(title: 'Log Out', onPressed: () {
-
-                  FirebaseAuth.instance.signOut();
-
-                }),
+                buildDrawerItem(
+                    title: 'Log Out',
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    }),
               ],
             ),
           ),
-          Spacer(),
-          Divider(),
+          const Spacer(),
+          const Divider(),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
             child: Column(
               children: [
                 buildDrawerItem(
@@ -557,8 +557,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.bottomSheet(Container(
       width: Get.width,
       height: Get.height * 0.5,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8), topRight: Radius.circular(8)),
           color: Colors.white),
@@ -569,7 +569,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             "Select Your Location",
             style: TextStyle(
                 color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
@@ -577,7 +577,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "Home Address",
             style: TextStyle(
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
@@ -614,7 +614,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               width: Get.width,
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -628,7 +628,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     authController.myUser.value.hAddress!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
@@ -641,7 +641,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 20,
           ),
-          Text(
+          const Text(
             "Business Address",
             style: TextStyle(
                 color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
@@ -678,7 +678,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               width: Get.width,
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -692,7 +692,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     authController.myUser.value.bAddress!,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
                         fontWeight: FontWeight.w600),
@@ -739,7 +739,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               width: Get.width,
               height: 50,
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         spreadRadius: 4,
                         blurRadius: 10)
                   ]),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -773,8 +773,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.bottomSheet(Container(
       width: Get.width,
       height: Get.height * 0.4,
-      padding: EdgeInsets.only(left: 20),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.only(left: 20),
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(12), topLeft: Radius.circular(12)),
@@ -807,8 +807,8 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
+          const Padding(
+            padding: EdgeInsets.only(right: 20),
             child: Divider(),
           ),
           Padding(
@@ -824,7 +824,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: Colors.white,
                   ),
                   color: AppColors.greenColor,
-                  shape: StadiumBorder(),
+                  shape: const StadiumBorder(),
                 )
               ],
             ),
@@ -861,25 +861,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
   buildDriverCard(bool selected) {
     return Container(
-      margin: EdgeInsets.only(right: 8, left: 8, top: 4, bottom: 4),
+      margin: const EdgeInsets.only(right: 8, left: 8, top: 4, bottom: 4),
       height: 85,
       width: 165,
       decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
                 color: selected
-                    ? Color(0xff2DBB54).withOpacity(0.2)
+                    ? const Color(0xff2DBB54).withOpacity(0.2)
                     : Colors.grey.withOpacity(0.2),
-                offset: Offset(0, 5),
+                offset: const Offset(0, 5),
                 blurRadius: 5,
                 spreadRadius: 1)
           ],
           borderRadius: BorderRadius.circular(12),
-          color: selected ? Color(0xff2DBB54) : Colors.grey),
+          color: selected ? const Color(0xff2DBB54) : Colors.grey),
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
+            padding:
+                const EdgeInsets.only(left: 10, top: 10, bottom: 10, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -919,7 +920,7 @@ class _HomeScreenState extends State<HomeScreen> {
             'assets/visa.png',
             width: 40,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           DropdownButton<String>(

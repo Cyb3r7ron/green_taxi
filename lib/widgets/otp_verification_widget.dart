@@ -32,7 +32,7 @@ Widget otpVerificationWidget() {
             text: TextSpan(
                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: AppConstants.resendCode + " ",
                   ),
                   TextSpan(

@@ -3,9 +3,11 @@ import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 
 import '../widgets/green_intro_widget.dart';
-
+import 'package:flutter/foundation.dart';
 
 class AddPaymentScreen extends StatefulWidget {
+  const AddPaymentScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return AddPaymentScreenState();
@@ -51,12 +53,10 @@ class AddPaymentScreenState extends State<AddPaymentScreen> {
         child: Column(
           children: <Widget>[
             greenIntroWidgetWithoutLogos(title: 'My Card'),
-
             const SizedBox(
               height: 30,
             ),
             CreditCardWidget(
-
               cardNumber: cardNumber,
               expiryDate: expiryDate,
               cardHolderName: cardHolderName,
@@ -67,9 +67,7 @@ class AddPaymentScreenState extends State<AddPaymentScreen> {
               obscureCardCvv: true,
               isHolderNameVisible: true,
               isSwipeGestureEnabled: true,
-              onCreditCardWidgetChange:
-                  (CreditCardBrand creditCardBrand) {},
-
+              onCreditCardWidgetChange: (CreditCardBrand creditCardBrand) {},
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -121,7 +119,6 @@ class AddPaymentScreenState extends State<AddPaymentScreen> {
                       ),
                       onCreditCardModelChange: onCreditCardModelChange,
                     ),
-
                     const SizedBox(
                       height: 20,
                     ),
@@ -138,7 +135,6 @@ class AddPaymentScreenState extends State<AddPaymentScreen> {
                           'Validate',
                           style: TextStyle(
                             color: Colors.white,
-
                             fontSize: 14,
                             package: 'flutter_credit_card',
                           ),
@@ -146,9 +142,13 @@ class AddPaymentScreenState extends State<AddPaymentScreen> {
                       ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          print('valid!');
+                          if (kDebugMode) {
+                            print('valid!');
+                          }
                         } else {
-                          print('invalid!');
+                          if (kDebugMode) {
+                            print('invalid!');
+                          }
                         }
                       },
                     ),

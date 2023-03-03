@@ -44,11 +44,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     child: Container(
                       width: 45,
                       height: 45,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         color: AppColors.greenColor,
                         size: 20,
@@ -58,7 +58,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             otpVerificationWidget(),

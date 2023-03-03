@@ -19,7 +19,7 @@ class DriverProfileSetup extends StatefulWidget {
 class _DriverProfileSetupState extends State<DriverProfileSetup> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AuthController authController = Get.find<AuthController>();
 
   final ImagePicker _picker = ImagePicker();
@@ -45,7 +45,9 @@ class _DriverProfileSetupState extends State<DriverProfileSetup> {
               height: Get.height * 0.4,
               child: Stack(
                 children: [
-                  greenIntroWidgetWithoutLogos(title: 'Let’s Get Started!',subtitle: 'Complete the profile Details'),
+                  greenIntroWidgetWithoutLogos(
+                      title: 'Let’s Get Started!',
+                      subtitle: 'Complete the profile Details'),
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: InkWell(
@@ -54,34 +56,34 @@ class _DriverProfileSetupState extends State<DriverProfileSetup> {
                       },
                       child: selectedImage == null
                           ? Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.1),spreadRadius: 1,blurRadius: 2)
-                            ],
-                            shape: BoxShape.circle,
-                            color:Colors.white),
-                        child: Center(
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            size: 40,
-                            color: Colors.black,
-                          ),
-                        ),
-                      )
+                              width: 120,
+                              height: 120,
+                              margin: EdgeInsets.only(bottom: 20),
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 2)
+                              ], shape: BoxShape.circle, color: Colors.white),
+                              child: Center(
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 40,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            )
                           : Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: FileImage(selectedImage!),
-                                fit: BoxFit.fill),
-                            shape: BoxShape.circle,
-                            color: Colors.white),
-                      ),
+                              width: 120,
+                              height: 120,
+                              margin: EdgeInsets.only(bottom: 20),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: FileImage(selectedImage!),
+                                      fit: BoxFit.fill),
+                                  shape: BoxShape.circle,
+                                  color: Colors.white),
+                            ),
                     ),
                   ),
                 ],
@@ -97,69 +99,56 @@ class _DriverProfileSetupState extends State<DriverProfileSetup> {
                 child: Column(
                   children: [
                     TextFieldWidget(
-                        'Name', Icons.person_outlined, nameController,(String? input){
-
-                      if(input!.isEmpty){
+                        'Name', Icons.person_outlined, nameController,
+                        (String? input) {
+                      if (input!.isEmpty) {
                         return 'Name is required!';
                       }
 
-                      if(input.length<5){
+                      if (input.length < 5) {
                         return 'Please enter a valid name!';
                       }
 
                       return null;
-
                     }),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldWidget(
-
-                        'Email', Icons.email, emailController,(String? input){
-
-                      if(input!.isEmpty){
+                    TextFieldWidget('Email', Icons.email, emailController,
+                        (String? input) {
+                      if (input!.isEmpty) {
                         return 'Email is required!';
                       }
 
-                      if(!input.isEmail){
+                      if (!input.isEmail) {
                         return 'Enter valid email.';
                       }
 
                       return null;
-
-                    },onTap: ()async{
-
-
-
-                    },readOnly: false),
-
+                    }, onTap: () async {}, readOnly: false),
                     const SizedBox(
                       height: 30,
                     ),
                     Obx(() => authController.isProfileUploading.value
                         ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                            child: CircularProgressIndicator(),
+                          )
                         : greenButton('Submit', () {
+                            if (!formKey.currentState!.validate()) {
+                              return;
+                            }
 
-
-                      if(!formKey.currentState!.validate()){
-                        return;
-                      }
-
-                      if (selectedImage == null) {
-                        Get.snackbar('Warning', 'Please add your image');
-                        return;
-                      }
-                      authController.isProfileUploading(true);
-                      authController.storeDriverProfile(
-                          selectedImage!,
-                          nameController.text,
-                          emailController.text,
-
-
-                      );
-                    })),
+                            if (selectedImage == null) {
+                              Get.snackbar('Warning', 'Please add your image');
+                              return;
+                            }
+                            authController.isProfileUploading(true);
+                            authController.storeDriverProfile(
+                              selectedImage!,
+                              nameController.text,
+                              emailController.text,
+                            );
+                          })),
                   ],
                 ),
               ),
@@ -170,8 +159,9 @@ class _DriverProfileSetupState extends State<DriverProfileSetup> {
     );
   }
 
-  TextFieldWidget(
-      String title, IconData iconData, TextEditingController controller,Function validator,{Function? onTap,bool readOnly = false}) {
+  TextFieldWidget(String title, IconData iconData,
+      TextEditingController controller, Function validator,
+      {Function? onTap, bool readOnly = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -199,8 +189,8 @@ class _DriverProfileSetupState extends State<DriverProfileSetup> {
               borderRadius: BorderRadius.circular(8)),
           child: TextFormField(
             readOnly: readOnly,
-            onTap: ()=> onTap!(),
-            validator: (input)=> validator(input),
+            onTap: () => onTap!(),
+            validator: (input) => validator(input),
             controller: controller,
             style: GoogleFonts.poppins(
                 fontSize: 14,

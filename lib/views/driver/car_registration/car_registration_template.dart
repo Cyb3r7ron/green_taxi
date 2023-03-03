@@ -17,28 +17,24 @@ import 'package:green_taxi/views/driver/car_registration/pages/vehical_type_page
 import '../../../widgets/green_intro_widget.dart';
 import '../verification_pending_screen.dart';
 
-
 class CarRegistrationTemplate extends StatefulWidget {
   const CarRegistrationTemplate({Key? key}) : super(key: key);
 
   @override
-  State<CarRegistrationTemplate> createState() => _CarRegistrationTemplateState();
+  State<CarRegistrationTemplate> createState() =>
+      _CarRegistrationTemplateState();
 }
 
 class _CarRegistrationTemplateState extends State<CarRegistrationTemplate> {
-
-
   String selectedLocation = '';
-  String selectedVehicalType =  '';
-  String selectedVehicalMake =  '';
-  String selectedVehicalModel =  '';
+  String selectedVehicalType = '';
+  String selectedVehicalMake = '';
+  String selectedVehicalModel = '';
   String selectModelYear = '';
   PageController pageController = PageController();
   TextEditingController vehicalNumberController = TextEditingController();
   String vehicalColor = '';
   File? document;
-
-
 
   int currentPage = 0;
   @override
@@ -46,111 +42,116 @@ class _CarRegistrationTemplateState extends State<CarRegistrationTemplate> {
     return Scaffold(
       body: Column(
         children: [
-
-          greenIntroWidgetWithoutLogos(title: 'Car Registration',subtitle: 'Complete the process detail'),
-
-          const SizedBox(height: 20,),
-
-          Expanded(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: PageView(
-              onPageChanged: (int page){
-                currentPage = page;
-              },
-              controller: pageController,
-              physics: NeverScrollableScrollPhysics(),
-              children: [
-
-                LocationPage(selectedLocation: selectedLocation,onSelect: (String location){
-                  setState(() {
-                    selectedLocation = location;
-                  });
-                },),
-
-                VehicalTypePage(
-                  selectedVehical: selectedVehicalType,
-                  onSelect: (String vehicalType){
-                    setState(() {
-                      selectedVehicalType = vehicalType;
-                    });
-                  },
-                ),
-
-                VehicalMakePage(
-                  selectedVehical: selectedVehicalMake,
-                  onSelect: (String vehicalMake){
-                    setState(() {
-                      selectedVehicalMake = vehicalMake;
-                    });
-                  },
-                ),
-
-                VehicalModelPage(
-                  selectedModel: selectedVehicalModel,
-                  onSelect: (String vehicalModel){
-                    setState(() {
-                      selectedVehicalModel = vehicalModel;
-                    });
-                  },
-                ),
-                VehicalModelYearPage(
-                  onSelect: (int year){
-                    setState(() {
-                      selectModelYear = year.toString();
-                    });
-                  },
-                ),
-
-                VehicalNumberPage(
-                  controller: vehicalNumberController,
-                ),
-
-                VehicalColorPage(
-                  onColorSelected: (String selectedColor){
-                    vehicalColor = selectedColor;
-                  },
-                ),
-                UploadDocumentPage(onImageSelected: (File image){
-                  document = image;
-                },),
-                DocumentUploadedPage()
-              ],
+          greenIntroWidgetWithoutLogos(
+              title: 'Car Registration',
+              subtitle: 'Complete the process detail'),
+          const SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: PageView(
+                onPageChanged: (int page) {
+                  currentPage = page;
+                },
+                controller: pageController,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  LocationPage(
+                    selectedLocation: selectedLocation,
+                    onSelect: (String location) {
+                      setState(() {
+                        selectedLocation = location;
+                      });
+                    },
+                  ),
+                  VehicalTypePage(
+                    selectedVehical: selectedVehicalType,
+                    onSelect: (String vehicalType) {
+                      setState(() {
+                        selectedVehicalType = vehicalType;
+                      });
+                    },
+                  ),
+                  VehicalMakePage(
+                    selectedVehical: selectedVehicalMake,
+                    onSelect: (String vehicalMake) {
+                      setState(() {
+                        selectedVehicalMake = vehicalMake;
+                      });
+                    },
+                  ),
+                  VehicalModelPage(
+                    selectedModel: selectedVehicalModel,
+                    onSelect: (String vehicalModel) {
+                      setState(() {
+                        selectedVehicalModel = vehicalModel;
+                      });
+                    },
+                  ),
+                  VehicalModelYearPage(
+                    onSelect: (int year) {
+                      setState(() {
+                        selectModelYear = year.toString();
+                      });
+                    },
+                  ),
+                  VehicalNumberPage(
+                    controller: vehicalNumberController,
+                  ),
+                  VehicalColorPage(
+                    onColorSelected: (String selectedColor) {
+                      vehicalColor = selectedColor;
+                    },
+                  ),
+                  UploadDocumentPage(
+                    onImageSelected: (File image) {
+                      document = image;
+                    },
+                  ),
+                  DocumentUploadedPage()
+                ],
+              ),
             ),
-          ),),
-
+          ),
           Align(
               alignment: Alignment.bottomRight,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Obx(()=> isUploading.value? Center(child: CircularProgressIndicator(),): FloatingActionButton(onPressed: (){
-
-
-                  if(currentPage<8){
-                    pageController.animateToPage(currentPage+1, duration: const Duration(seconds: 1), curve: Curves.easeIn);
-
-                  }else{
-                    uploadDriverCarEntry();
-                  }
-
-
-                },child: Icon(Icons.arrow_forward,color: Colors.white,),backgroundColor: AppColors.greenColor,)),
+                child: Obx(() => isUploading.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : FloatingActionButton(
+                        onPressed: () {
+                          if (currentPage < 8) {
+                            pageController.animateToPage(currentPage + 1,
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeIn);
+                          } else {
+                            uploadDriverCarEntry();
+                          }
+                        },
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                        ),
+                        backgroundColor: AppColors.greenColor,
+                      )),
               )),
-
-          
         ],
       ),
     );
   }
 
-
   var isUploading = false.obs;
 
-  void uploadDriverCarEntry() async{
-
+  void uploadDriverCarEntry() async {
     isUploading(true);
     String imageUrl = await Get.find<AuthController>().uploadImage(document!);
 
-    Map<String,dynamic> carData = {
+    Map<String, dynamic> carData = {
       'country': selectedLocation,
       'vehicle_type': selectedVehicalType,
       'vehicle_make': selectedVehicalMake,
@@ -163,6 +164,6 @@ class _CarRegistrationTemplateState extends State<CarRegistrationTemplate> {
 
     await Get.find<AuthController>().uploadCarEntry(carData);
     isUploading(false);
-    Get.off(()=>VerificaitonPendingScreen());
+    Get.off(() => VerificaitonPendingScreen());
   }
 }

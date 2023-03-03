@@ -10,6 +10,8 @@ import '../widgets/green_intro_widget.dart';
 import 'add_payment_card_screen.dart';
 
 class PaymentScreen extends StatefulWidget {
+  const PaymentScreen({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return PaymentScreenState();
@@ -121,18 +123,18 @@ class PaymentScreenState extends State<PaymentScreen> {
                           fontWeight: FontWeight.bold,
                           color: AppColors.greenColor),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     FloatingActionButton(
                       onPressed: () {
-                        Get.to(() => AddPaymentCardScreen());
+                        Get.to(() => const AddPaymentCardScreen());
                       },
-                      child: Icon(
+                      backgroundColor: AppColors.greenColor,
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: Colors.white,
                       ),
-                      backgroundColor: AppColors.greenColor,
                     )
                   ],
                 ))

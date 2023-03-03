@@ -10,10 +10,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:green_taxi/controller/auth_controller.dart';
 import 'package:green_taxi/utils/app_colors.dart';
-import 'package:green_taxi/views/home.dart';
 import 'package:green_taxi/widgets/green_intro_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
+import 'package:flutter/foundation.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -46,22 +46,24 @@ class _MyProfileState extends State<MyProfile> {
   late LatLng shoppingAddress;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
-    nameController.text = authController.myUser.value.name??"";
-    homeController.text = authController.myUser.value.hAddress??"";
-    shopController.text = authController.myUser.value.mallAddress??"";
-    businessController.text = authController.myUser.value.bAddress??"";
+    nameController.text = authController.myUser.value.name ?? "";
+    homeController.text = authController.myUser.value.hAddress ?? "";
+    shopController.text = authController.myUser.value.mallAddress ?? "";
+    businessController.text = authController.myUser.value.bAddress ?? "";
 
     homeAddress = authController.myUser.value.homeAddress!;
     businessAddress = authController.myUser.value.bussinessAddres!;
     shoppingAddress = authController.myUser.value.shoppingAddress!;
-
   }
 
   @override
   Widget build(BuildContext context) {
-    print(authController.myUser.value.image!);
+    if (kDebugMode) {
+      print(authController.myUser.value.image!);
+    }
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -80,43 +82,45 @@ class _MyProfileState extends State<MyProfile> {
                         getImage(ImageSource.camera);
                       },
                       child: selectedImage == null
-                          ? authController.myUser.value.image!=null? Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: NetworkImage(authController.myUser.value.image!),
-                                fit: BoxFit.fill),
-                            shape: BoxShape.circle,
-                            color: Color(0xffD6D6D6)),
-
-                      ): Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xffD6D6D6)),
-                        child: Center(
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            size: 40,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
+                          ? authController.myUser.value.image != null
+                              ? Container(
+                                  width: 120,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: NetworkImage(authController
+                                              .myUser.value.image!),
+                                          fit: BoxFit.fill),
+                                      shape: BoxShape.circle,
+                                      color: const Color(0xffD6D6D6)),
+                                )
+                              : Container(
+                                  width: 120,
+                                  height: 120,
+                                  margin: const EdgeInsets.only(bottom: 20),
+                                  decoration: const BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Color(0xffD6D6D6)),
+                                  child: const Center(
+                                    child: Icon(
+                                      Icons.camera_alt_outlined,
+                                      size: 40,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
                           : Container(
-                        width: 120,
-                        height: 120,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: FileImage(selectedImage!),
-                                fit: BoxFit.fill),
-                            shape: BoxShape.circle,
-                            color: Color(0xffD6D6D6)),
-                      ),
+                              width: 120,
+                              height: 120,
+                              margin: const EdgeInsets.only(bottom: 20),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: FileImage(selectedImage!),
+                                      fit: BoxFit.fill),
+                                  shape: BoxShape.circle,
+                                  color: const Color(0xffD6D6D6)),
+                            ),
                     ),
                   ),
                 ],
@@ -126,117 +130,120 @@ class _MyProfileState extends State<MyProfile> {
               height: 20,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 23),
+              padding: const EdgeInsets.symmetric(horizontal: 23),
               child: Form(
                 key: formKey,
                 child: Column(
                   children: [
                     TextFieldWidget(
-                        'Name', Icons.person_outlined, nameController,(String? input){
+                      'Name',
+                      Icons.person_outlined,
+                      nameController,
+                      (String? input) {
+                        if (input!.isEmpty) {
+                          return 'Name is required!';
+                        }
 
-                      if(input!.isEmpty){
-                        return 'Name is required!';
-                      }
+                        if (input.length < 5) {
+                          return 'Please enter a valid name!';
+                        }
 
-                      if(input.length<5){
-                        return 'Please enter a valid name!';
-                      }
-
-                      return null;
-
-                    },),
+                        return null;
+                      },
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldWidget(
-                        'Home Address', Icons.home_outlined, homeController,(String? input){
-
-                      if(input!.isEmpty){
+                        'Home Address', Icons.home_outlined, homeController,
+                        (String? input) {
+                      if (input!.isEmpty) {
                         return 'Home Address is required!';
                       }
 
                       return null;
+                    }, onTap: () async {
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                    },onTap: ()async{
-                        Prediction? p = await  authController.showGoogleAutoComplete(context);
+                      /// now let's translate this selected address and convert it to latlng obj
 
-                        /// now let's translate this selected address and convert it to latlng obj
+                      homeAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      homeController.text = p.description!;
 
-                        homeAddress = await authController.buildLatLngFromAddress(p!.description!);
-                        homeController.text = p.description!;
-                        ///store this information into firebase together once update is clicked
-
-
-
-                    },readOnly: true),
+                      ///store this information into firebase together once update is clicked
+                    }, readOnly: true),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFieldWidget('Business Address', Icons.card_travel,
-                        businessController,(String? input){
-                          if(input!.isEmpty){
-                            return 'Business Address is required!';
-                          }
+                        businessController, (String? input) {
+                      if (input!.isEmpty) {
+                        return 'Business Address is required!';
+                      }
 
-                          return null;
-                        },onTap: ()async{
-                          Prediction? p = await  authController.showGoogleAutoComplete(context);
+                      return null;
+                    }, onTap: () async {
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                          /// now let's translate this selected address and convert it to latlng obj
+                      /// now let's translate this selected address and convert it to latlng obj
 
-                          businessAddress = await authController.buildLatLngFromAddress(p!.description!);
-                          businessController.text = p.description!;
-                          ///store this information into firebase together once update is clicked
+                      businessAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      businessController.text = p.description!;
 
-                        },readOnly: true),
+                      ///store this information into firebase together once update is clicked
+                    }, readOnly: true),
                     const SizedBox(
                       height: 10,
                     ),
-                    TextFieldWidget('Shopping Center',
-                        Icons.shopping_cart_outlined, shopController,(String? input){
-                          if(input!.isEmpty){
-                            return 'Shopping Center is required!';
-                          }
+                    TextFieldWidget(
+                        'Shopping Center',
+                        Icons.shopping_cart_outlined,
+                        shopController, (String? input) {
+                      if (input!.isEmpty) {
+                        return 'Shopping Center is required!';
+                      }
 
-                          return null;
-                        },onTap: ()async{
-                          Prediction? p = await  authController.showGoogleAutoComplete(context);
+                      return null;
+                    }, onTap: () async {
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                          /// now let's translate this selected address and convert it to latlng obj
+                      /// now let's translate this selected address and convert it to latlng obj
 
-                          shoppingAddress = await authController.buildLatLngFromAddress(p!.description!);
-                          shopController.text = p.description!;
-                          ///store this information into firebase together once update is clicked
+                      shoppingAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      shopController.text = p.description!;
 
-                        },readOnly: true),
+                      ///store this information into firebase together once update is clicked
+                    }, readOnly: true),
                     const SizedBox(
                       height: 30,
                     ),
                     Obx(() => authController.isProfileUploading.value
-                        ? Center(
-                      child: CircularProgressIndicator(),
-                    )
+                        ? const Center(
+                            child: CircularProgressIndicator(),
+                          )
                         : greenButton('Update', () {
+                            if (!formKey.currentState!.validate()) {
+                              return;
+                            }
 
-
-                      if(!formKey.currentState!.validate()){
-                        return;
-                      }
-
-
-                      authController.isProfileUploading(true);
-                      authController.storeUserInfo(
-                          selectedImage,
-                          nameController.text,
-                          homeController.text,
-                          businessController.text,
-                          shopController.text,
-                      url: authController.myUser.value.image??"",
-                      homeLatLng: homeAddress,
-                        shoppingLatLng: shoppingAddress,
-                        businessLatLng: businessAddress
-                      );
-                    })),
+                            authController.isProfileUploading(true);
+                            authController.storeUserInfo(
+                                selectedImage,
+                                nameController.text,
+                                homeController.text,
+                                businessController.text,
+                                shopController.text,
+                                url: authController.myUser.value.image ?? "",
+                                homeLatLng: homeAddress,
+                                shoppingLatLng: shoppingAddress,
+                                businessLatLng: businessAddress);
+                          })),
                   ],
                 ),
               ),
@@ -247,8 +254,9 @@ class _MyProfileState extends State<MyProfile> {
     );
   }
 
-  TextFieldWidget(
-      String title, IconData iconData, TextEditingController controller,Function validator,{Function? onTap,bool readOnly = false}) {
+  TextFieldWidget(String title, IconData iconData,
+      TextEditingController controller, Function validator,
+      {Function? onTap, bool readOnly = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -257,7 +265,7 @@ class _MyProfileState extends State<MyProfile> {
           style: GoogleFonts.poppins(
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: Color(0xffA7A7A7)),
+              color: const Color(0xffA7A7A7)),
         ),
         const SizedBox(
           height: 6,
@@ -275,14 +283,14 @@ class _MyProfileState extends State<MyProfile> {
               ],
               borderRadius: BorderRadius.circular(8)),
           child: TextFormField(
-          readOnly: readOnly,
-            onTap: ()=> onTap!(),
-            validator: (input)=> validator(input),
+            readOnly: readOnly,
+            onTap: () => onTap!(),
+            validator: (input) => validator(input),
             controller: controller,
             style: GoogleFonts.poppins(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xffA7A7A7)),
+                color: const Color(0xffA7A7A7)),
             decoration: InputDecoration(
               prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 10),

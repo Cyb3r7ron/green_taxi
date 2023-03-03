@@ -6,7 +6,8 @@ import 'package:green_taxi/utils/app_constants.dart';
 import 'package:green_taxi/views/otp_verification_screen.dart';
 import 'package:green_taxi/widgets/text_widget.dart';
 
-Widget loginWidget(CountryCode countryCode, Function onCountryChange,Function onSubmit) {
+Widget loginWidget(
+    CountryCode countryCode, Function onCountryChange, Function onSubmit) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Column(
@@ -53,7 +54,7 @@ Widget loginWidget(CountryCode countryCode, Function onCountryChange,Function on
 
                           // const SizedBox(width: 10,),
 
-                          Icon(Icons.keyboard_arrow_down_rounded)
+                          const Icon(Icons.keyboard_arrow_down_rounded)
                         ],
                       ),
                     ),
@@ -66,9 +67,9 @@ Widget loginWidget(CountryCode countryCode, Function onCountryChange,Function on
               Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextField(
-                    onSubmitted: (String? input)=> onSubmit(input),
+                    onSubmitted: (String? input) => onSubmit(input),
                     decoration: InputDecoration(
                         hintStyle: GoogleFonts.poppins(
                             fontSize: 12, fontWeight: FontWeight.normal),
@@ -90,13 +91,13 @@ Widget loginWidget(CountryCode countryCode, Function onCountryChange,Function on
             text: TextSpan(
                 style: GoogleFonts.poppins(color: Colors.black, fontSize: 12),
                 children: [
-                  TextSpan(
+                  const TextSpan(
                     text: AppConstants.byCreating + " ",
                   ),
                   TextSpan(
                       text: AppConstants.termsOfService + " ",
                       style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
-                  TextSpan(
+                  const TextSpan(
                     text: "and ",
                   ),
                   TextSpan(
