@@ -462,7 +462,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 buildDrawerItem(
                     title: 'Payment History',
-                    onPressed: () => Get.to(() => PaymentScreen())),
+                    onPressed: () => Get.to(() => const PaymentScreen())),
                 buildDrawerItem(
                     title: 'Ride History', onPressed: () {}, isVisible: true),
                 buildDrawerItem(title: 'Invite Friends', onPressed: () {}),
@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         spreadRadius: 4,
                         blurRadius: 10)
                   ]),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -819,12 +819,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 Expanded(child: buildPaymentCardWidget()),
                 MaterialButton(
                   onPressed: () {},
+                  color: AppColors.greenColor,
+                  shape: const StadiumBorder(),
                   child: textWidget(
                     text: 'Confirm',
                     color: Colors.white,
                   ),
-                  color: AppColors.greenColor,
-                  shape: const StadiumBorder(),
                 )
               ],
             ),
