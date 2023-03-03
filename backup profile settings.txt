@@ -125,11 +125,13 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
 
                       return null;
                     }, onTap: () async {
-                      /// now let's translate this selected address and convert it to latlng obj
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                      homeAddress =
-                          await authController.buildLatLngFromAddress('');
-                      homeController.text;
+                      /// now let's translate this selected address and convert it to latlng obj
+                      homeAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      homeController.text = p.description!;
 
                       ///store this information into firebase together once update is clicked
                     }, readOnly: true),
@@ -144,11 +146,13 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
 
                       return null;
                     }, onTap: () async {
-                      /// now let's translate this selected address and convert it to latlng obj
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                      businessAddress =
-                          await authController.buildLatLngFromAddress('');
-                      businessController.text;
+                      /// now let's translate this selected address and convert it to latlng obj
+                      businessAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      businessController.text = p.description!;
 
                       ///store this information into firebase together once update is clicked
                     }, readOnly: true),
@@ -165,11 +169,13 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
 
                       return null;
                     }, onTap: () async {
-                      /// now let's translate this selected address and convert it to latlng obj
+                      Prediction? p =
+                          await authController.showGoogleAutoComplete(context);
 
-                      shoppingAddress =
-                          await authController.buildLatLngFromAddress('');
-                      shopController.text;
+                      /// now let's translate this selected address and convert it to latlng obj
+                      shoppingAddress = await authController
+                          .buildLatLngFromAddress(p!.description!);
+                      shopController.text = p.description!;
 
                       ///store this information into firebase together once update is clicked
                     }, readOnly: true),
@@ -278,3 +284,4 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
     );
   }
 }
+
