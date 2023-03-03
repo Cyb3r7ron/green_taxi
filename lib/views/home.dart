@@ -749,7 +749,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         spreadRadius: 4,
                         blurRadius: 10)
                   ]),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
